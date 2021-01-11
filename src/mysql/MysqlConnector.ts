@@ -18,14 +18,15 @@ class MysqlConnector extends Connector {
             });
         });
     }
-    public async execute(req: string) : Promise<any> {
+    public async execute<T>(req: string, values? : any) : Promise<T> {
         return new Promise((resolve) => {
-            this.connection.query(req, (err: MysqlError, data) => {
+            this.connection.query(req, values? values: [], (err: MysqlError | null, data : T) => {
                 if (err) throw err;
                 resolve(data);
             })
         })
     }
+    
 }
 
 export default MysqlConnector;
